@@ -1,0 +1,20 @@
+* {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  padding: 10px;
+  width: 300px;
+  margin: 10px 0;
+}
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.weather {
+  margin-top: 20px;
+}
