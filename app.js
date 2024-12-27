@@ -21,6 +21,7 @@ async function fetchWeatherData(city) {
     weatherResult.innerHTML = `<p>${error.message}</p>`;
   }
 }
+
 //tahmin görütüleme
 function displayForecast(data) {
   const cityName = data.city.name;
@@ -54,3 +55,69 @@ searchButton.addEventListener("click", () => {
   fetchWeatherData(city);
   cityInput.value = "";
 });
+
+document
+  .getElementById("getLocationButton")
+  .addEventListener("click", getLocationWeather);
+
+// Konum Bilgisi ile Hava Durumu Al
+function getLocationWeather() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showWeatherByLocation, showError);
+    //navigator.geolocation.getCurrentPosition() metodu, kullanıcının konumunu almak için kullanılır
+  } else {
+    weatherResult.innerHTML =
+      "<p>Tarayıcınız konum bilgisi desteği sağlamıyor.</p>";
+  }
+}
+
+// Konum Bilgisine Göre Hava Durumu Getir
+async function showWeatherByLocation(position) {
+  const lat = position.coords.latitude; // Enlem
+  const lon = position.coords.longitude; // Boylam
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=tr`;
+
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error("Konuma göre hava durumu alınamadı!");
+    }
+
+    const data = await response.json();
+    displayWeatherData(data);
+  } catch (error) {
+    weatherResult.innerHTML = `<p>${error.message}</p>`;
+  }
+}
+
+// Hava Durumu Verilerini Göster
+function displayWeatherData(data) {
+  const city = data.name;
+  const temp = data.main.temp;
+  const description = data.weather[0].description;
+  const icon = data.weather[0].icon;
+
+  weatherResult.innerHTML = `
+    <h2>${city} için Hava Durumu</h2>
+    <p>Sıcaklık: ${temp}°C</p>
+    <p>Durum: ${description}</p>
+    <img src="http://openweathermap.org/img/wn/${icon}.png" alt="${description}">
+  `;
+}
+
+// Hata Mesajı Göster
+function showError(error) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      weatherResult.innerHTML = "<p>Kullanıcı konum izni vermedi.</p>";
+      break;
+    case error.POSITION_UNAVAILABLE:
+      weatherResult.innerHTML = "<p>Konum bilgisi alınamıyor.</p>";
+      break;
+    case error.TIMEOUT:
+      weatherResult.innerHTML = "<p>Konum isteği zaman aşımına uğradı.</p>";
+      break;
+    default:
+      weatherResult.innerHTML = "<p>Bilinmeyen bir hata oluştu.</p>";
+  }
+}
