@@ -31,7 +31,7 @@ function displayForecast(data) {
   for (let i = 0; i < list.length; i += 8) {
     const forecast = list[i];
     const date = new Date(forecast.dt * 1000).toLocaleDateString("tr-TR"); //Unix zaman damgasını tarih ve saat nesnesine dönüştürür
-    const temp = forecast.main.temp; //sıcaklık
+    const temp = Math.round(forecast.main.temp); //sıcaklık
     const description = forecast.weather[0].description; //hava durumu açıklaması
     const icon = forecast.weather[0].icon; //hava durumu ikonu
 
@@ -49,9 +49,10 @@ function displayForecast(data) {
 searchButton.addEventListener("click", () => {
   const city = cityInput.value.trim();
   if (!city) {
-    weatherResult.innerHTML = "<p>Lütfen bir şehir adı giriniz</p>";
+    errorMessage.innerHTML = "<p>Lütfen bir şehir adı giriniz</p>";
     return;
   }
+  errorMessage.innerHTML = ""; // Daha önceki içeriği temizle
   fetchWeatherData(city);
   cityInput.value = "";
 });
@@ -86,7 +87,7 @@ async function showWeatherByLocation(position) {
 // Hava Durumu Verilerini Göster
 function displayWeatherData(data) {
   const city = data.name;
-  const temp = data.main.temp;
+  const temp = Math.round(data.main.temp);
   const description = data.weather[0].description;
   const icon = data.weather[0].icon;
 
