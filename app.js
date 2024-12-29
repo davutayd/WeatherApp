@@ -56,20 +56,13 @@ searchButton.addEventListener("click", () => {
   cityInput.value = "";
 });
 
-document
-  .getElementById("getLocationButton")
-  .addEventListener("click", getLocationWeather);
-
-// Konum Bilgisi ile Hava Durumu Al
-function getLocationWeather() {
+window.onload = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showWeatherByLocation, showError);
-    //navigator.geolocation.getCurrentPosition() metodu, kullanıcının konumunu almak için kullanılır
   } else {
-    weatherResult.innerHTML =
-      "<p>Tarayıcınız konum bilgisi desteği sağlamıyor.</p>";
+    weatherResult.innerHTML = "<p>Konum bilgisi alınamıyor.</p>";
   }
-}
+};
 
 // Konum Bilgisine Göre Hava Durumu Getir
 async function showWeatherByLocation(position) {
@@ -98,7 +91,8 @@ function displayWeatherData(data) {
   const icon = data.weather[0].icon;
 
   weatherResult.innerHTML = `
-    <h2>${city} için Hava Durumu</h2>
+    <h2>Konumunuza Göre Hava Durumu</h2>
+    <h2>${city} </h2>
     <p>Sıcaklık: ${temp}°C</p>
     <p>Durum: ${description}</p>
     <img src="http://openweathermap.org/img/wn/${icon}.png" alt="${description}">
