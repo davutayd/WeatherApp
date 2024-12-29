@@ -48,11 +48,13 @@ function displayForecast(data) {
 
 searchButton.addEventListener("click", () => {
   const city = cityInput.value.trim();
+
+  forecastResult.innerHTML = "";
+  errorMessage.innerHTML = "";
   if (!city) {
     errorMessage.innerHTML = "<p>Lütfen bir şehir adı giriniz</p>";
     return;
   }
-  errorMessage.innerHTML = ""; // Daha önceki içeriği temizle
   fetchWeatherData(city);
   cityInput.value = "";
 });
