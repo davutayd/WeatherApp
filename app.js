@@ -17,7 +17,7 @@ async function fetchWeatherData(city) {
 
     const data = await response.json(); //API'den gelen veriyi JSON formatına dönüştürür
     displayForecast(data);
-  } catch (error) {
+  } catch (error) { 
     weatherResult.innerHTML = `<p>${error.message}</p>`;
   }
 }
@@ -26,7 +26,12 @@ async function fetchWeatherData(city) {
 function displayForecast(data) {
   const cityName = data.city.name;
   const list = data.list;
-  forecastResult.innerHTML = `<h2>${cityName} için 5 Günlük Hava Durumu</h2>`;
+  forecastResult.innerHTML = ` 
+    <div class="forecast-header">
+      <h2>${cityName} için 5 Günlük Hava Durumu</h2>
+    </div>
+    <div class="forecast-container"></div>`;
+  const forecastContainer = document.querySelector(".forecast-container");
 
   for (let i = 0; i < list.length; i += 8) {
     const forecast = list[i];
@@ -35,11 +40,11 @@ function displayForecast(data) {
     const description = forecast.weather[0].description; //hava durumu açıklaması
     const icon = forecast.weather[0].icon; //hava durumu ikonu
 
-    forecastResult.innerHTML += `
-      <div>
+    forecastContainer.innerHTML += `
+      <div class="forecast-item">
         <p><strong>${date}</strong></p>
-        <p>Sıcaklık: ${temp}°C</p>
-        <p>Durum: ${description}</p>
+        <p>${temp}°C</p>
+        <p>${description}</p>
         <img src="http://openweathermap.org/img/wn/${icon}.png" alt="${description}">
       </div>
     `;
@@ -90,14 +95,14 @@ async function showWeatherByLocation(position) {
 function displayWeatherData(data) {
   const city = data.name;
   const temp = Math.round(data.main.temp);
-  const description = data.weather[0].description;
-  const icon = data.weather[0].icon;
+  const description = data.weather[0].description; 
+  const icon = data.weather[0].icon; 
 
   weatherResult.innerHTML = `
     <h2>Konumunuza Göre Hava Durumu</h2>
     <h2>${city} </h2>
-    <p>Sıcaklık: ${temp}°C</p>
-    <p>Durum: ${description}</p>
+    <p>${temp}°C</p>
+    <p> ${description}</p>
     <img src="http://openweathermap.org/img/wn/${icon}.png" alt="${description}">
   `;
 }
