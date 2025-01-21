@@ -40,6 +40,7 @@ Web tarayıcınızda uygulamayı açmak için, projenin bulunduğu dizinde `inde
 ## Kullanım
 
 **1. Konumunuza Göre Hava Durumu:** Sayfa yüklendiğinde, kullanıcıdan konum izni istenir. İzin verildiğinde, kullanıcı konumuna göre anlık hava durumu bilgisi gösterilir.
+
 **2. 5 Günlük Hava Tahmini:** Sayfada, kullanıcının konumuna göre 5 günlük hava durumu tahmini görüntülenir.
 
-![Proje Resim](https://imgur.com/a/8ylbMbw)
+![Proje Resim](https://imgur.com/KrYJ3hn)
