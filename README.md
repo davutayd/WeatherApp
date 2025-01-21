@@ -43,4 +43,4 @@ Web tarayıcınızda uygulamayı açmak için, projenin bulunduğu dizinde `inde
 
 **2. 5 Günlük Hava Tahmini:** Sayfada, kullanıcının konumuna göre 5 günlük hava durumu tahmini görüntülenir.
 
-![Proje Resim](.vscode/Ekran%20görüntüsü%202025-01-09%20035656.png)
+![Proje Resim](https://i.imgur.com/KrYJ3hn.png)
